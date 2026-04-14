@@ -20,6 +20,7 @@ use App\Service\BillingContract;
 use App\Service\IpLookup\IpLookupServiceContract;
 use App\Service\IpLookup\NoIpLookupService;
 use App\Service\PermissionStore;
+use App\SocialiteProviders\OIDCProvider;
 use Dedoc\Scramble\Scramble;
 use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Facades\Socialite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -102,5 +104,17 @@ class AppServiceProvider extends ServiceProvider
         Route::model('member', Member::class);
         Route::model('invitation', OrganizationInvitation::class);
         Route::model('apiToken', Token::class);
+
+        // OIDC: register custom Socialite driver backed by LabPics ID discovery document
+        Socialite::extend('oidc', function ($app) {
+            $config = $app['config']['services.oidc'];
+
+            return new OIDCProvider(
+                $app['request'],
+                $config['client_id'],
+                $config['client_secret'],
+                $config['redirect'],
+            );
+        });
     }
 }
