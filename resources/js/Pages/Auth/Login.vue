@@ -100,5 +100,38 @@ const page = usePage<{
                 </PrimaryButton>
             </div>
         </form>
+
+        <div class="mt-6">
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-border-primary" />
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 text-text-secondary" style="background: inherit">или</span>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a
+                    href="/auth/oidc/redirect"
+                    class="flex w-full items-center justify-center gap-2 rounded-lg border border-border-primary px-4 py-2.5 text-sm font-medium text-text-primary transition-colors hover:bg-card-background-active focus:outline-none focus:ring-2 focus:ring-ring-focus">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                        <polyline points="10 17 15 12 10 7" />
+                        <line x1="15" y1="12" x2="3" y2="12" />
+                    </svg>
+                    Войти через LabPics ID
+                </a>
+            </div>
+        </div>
     </AuthenticationCard>
 </template>

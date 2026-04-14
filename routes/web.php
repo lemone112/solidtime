@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\OIDCController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Jetstream\Jetstream;
@@ -24,6 +25,10 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/shared-report', function () {
     return Inertia::render('SharedReport');
 })->name('shared-report');
+
+// OIDC authentication routes (LabPics ID SSO)
+Route::get('/auth/oidc/redirect', [OIDCController::class, 'redirect'])->name('oidc.redirect');
+Route::get('/auth/oidc/callback', [OIDCController::class, 'handleCallback'])->name('oidc.callback');
 
 Route::middleware([
     'auth:web',
